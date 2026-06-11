@@ -1,22 +1,30 @@
-//importaciones
-
 import express from 'express';
-import enviroments from './src/api/config/enviroments.js';
-import connection from './src/api/database/db.js';
+import connection from './src/api/database/db.js'; // Importamos la conexion de nuestra BBDD
+import environments from './src/api/config/environments.js'; // Traemos el puerto del .env
 
+const PORT = environments.port;
 const app = express();
-const PORT = 3000;
-//configuraciones
 
 app.get('/', (req, res) => {
-	res.send('Hola Mundo desde tp_integrador');
+	res.send('Hola mundo!');
 });
 
-app.get('/api/products', async (req, res) => {
-	const resultados = await connection.query('SELECT * FROM products');
-	res.json(resultados);
+// Creamos un endpoint minimo para verificar la conexion a la BBDD
+// localhost:3000/products es nuestro endpoint, es decir la URL especifica de nuestra API Rest para obtener un recurso
+
+app.get('/api/productos', async (req, res) => {
+	// Nuestra app atenderá peticiones get a la url /products
+	try {
+		const [rows] = await connection.query('SELECT * FROM productos'); // Le pasamos la siguiente consulta SQL
+		res.status(200).json({
+			// La respuesta que nos proporciona el objeto res devolverá el JSON
+			payload: rows,
+		});
+	} catch (error) {
+		console.error('Error obteniendo productos: ', error.message);
+	}
 });
 
 app.listen(PORT, () => {
-	console.log(`Servidor escuchando en el puerto ${PORT}`);
+	console.log(`Servidor corriendo en el puerto ${PORT}`);
 });

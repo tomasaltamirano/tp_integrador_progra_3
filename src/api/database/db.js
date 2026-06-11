@@ -1,14 +1,15 @@
 import mysql2 from 'mysql2/promise';
 
-import enviroments from '../config/enviroments.js';
+import environments from '../config/environments.js';
 
-const { database } = enviroments;
+const { database } = environments;
 
-const connnection = mysql2.createPool({
+const connection = mysql2.createPool({
 	host: database.host,
 	database: database.name,
 	user: database.user,
-	password: database.password,
+	password: database.password || '',
+	port: database.db_port || 3307,
 });
 
 export default connection; //exportamos esta conexion a la BBDD para poder tirarle sntencias en otro modulo, como por ejemplo en el index.js para hacer un testeo de la conexion a la BBDD.
