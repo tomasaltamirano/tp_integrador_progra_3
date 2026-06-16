@@ -1,0 +1,948 @@
+/* ================= Variables y Tema ================= */
+:root {
+    --bg-color: #f4f6f8;
+    --text-color: #1a1a1a;
+    --surface-color: #ffffff;
+    --primary-color: #00439c; /* Azul característico */
+    --accent-color: #e60012; /* Rojo para destacar botones de compra */
+    --border-color: #e0e0e0;
+    --shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --surface-color: #1e1e1e;
+    --primary-color: #3b82f6;
+    --accent-color: #ff4757;
+    --border-color: #333333;
+    --shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+
+
+
+/* ================= Reset ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Tahoma;
+}
+
+body {
+    /* background-image: url("https://wallpapers.com/images/hd/video-games-zoom-background-ux0skf8nbnx9xzen.jpg"); */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================= Header (REQUISITO TP) ================= */
+header {
+    background-color: var(--surface-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #000;
+}
+
+.kiosco-info h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alumnos {
+    font-size: 1rem;
+    color: gray;
+    margin-top: 5px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn-admin, .btn-theme {
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 3px solid var(--border-color);
+    background: var(--surface-color);
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* ================= Pantalla Bienvenida ================= */
+.bienvenida-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.bienvenida-card {
+    background-color: var(--surface-color);
+    padding: 4rem;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+.bienvenida-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.input-kiosco {
+    width: 80%;
+    padding: 1rem;
+    font-size: 1rem;
+    margin: 2rem 0;
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    text-align: center;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.btn-comenzar {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.5rem;
+    padding: 1.5rem 3rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 80%;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+/* ================= Pantalla Productos (Estilo Kiosco) ================= */
+.main-kiosco {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+/* Pestañas grandes como en la foto */
+.categorias-kiosco {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-categoria {
+    padding: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 2px solid var(--border-color);
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-categoria.activa {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Grilla de productos (Tarjetas grandes) */
+.grilla-kiosco {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* revisar */
+    gap: 2rem;
+}
+
+.tarjeta-producto {
+    background-color: var(--surface-color);
+    border-radius: 20px;
+    padding: 0.5rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.tarjeta-producto img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.specs {
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.tarjeta-producto h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.tarjeta-producto .precio {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.btn-agregar {
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* ================= Barra Inferior (Carrito Fijo) ================= */
+.barra-carrito {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--surface-color);
+    border-top: 2px solid var(--border-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-pedido h3 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.btn-pagar {
+    background-color: #28a745;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+
+
+/* ================= PANTALLA CARRITO (Basado en Mockup) ================= */
+
+.body-carrito {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    height: 100vh;
+}
+
+.cart-container {
+    background-color: var(--surface-color);
+    width: 100%;
+    max-width: 1100px;
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Header del Carrito */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.cart-header h2 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+}
+
+.btn-back {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: 0.2s;
+    width: 150px;
+    text-align: center;
+}
+
+.btn-back:hover {
+    background-color: var(--border-color);
+}
+
+/* Layout Principal */
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 3rem;
+}
+
+/* Lista de Items */
+.cart-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.cart-item {
+    display: flex;
+    background-color: var(--bg-color); /* Un tono para diferenciar del fondo surface */
+    border-radius: 16px;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.item-details h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.item-badge {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    align-self: flex-start;
+    letter-spacing: 1px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    width: fit-content;
+    margin-top: 1rem;
+}
+
+.btn-qty {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.item-price-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.btn-delete {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 0.2s;
+}
+
+.btn-delete:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.item-price {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Resumen de Compra */
+.cart-summary {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    height: fit-content;
+}
+
+.cart-summary h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.text-free {
+    color: #00d26a; /* Color verde para gratis */
+    font-weight: bold;
+}
+
+.summary-divider {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 0.5rem 0;
+}
+
+.total-row {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.btn-confirm-purchase {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 2px dashed var(--primary-color);
+    padding: 1.2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 1rem;
+    transition: 0.3s;
+}
+
+.btn-confirm-purchase:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-style: solid;
+}
+
+.secure-checkout {
+    text-align: center;
+    font-size: 0.85rem;
+    color: gray;
+    margin-top: 0.5rem;
+}
+
+/* Footer del Kiosco */
+.cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links span {
+    color: gray;
+    cursor: pointer;
+}
+
+.footer-links span:hover {
+    color: var(--text-color);
+}
+
+.copyright {
+    color: gray;
+}
+
+
+
+
+/* ================= PANTALLA TICKET (COMPRA EXITOSA) ================= */
+
+.body-ticket {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.ticket-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Encabezado de Éxito */
+.success-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.check-icon {
+    background-color: #5c6bc0;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem auto;
+    box-shadow: 0 0 15px rgba(92, 107, 192, 0.5);
+}
+
+.success-header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.success-header p {
+    color: gray;
+    font-size: 1.1rem;
+}
+
+/* Tarjeta del Recibo */
+.receipt-card {
+    background-color: var(--surface-color);
+    border-radius: 16px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 10px 40px rgba(0, 67, 156, 0.15); /* Efecto Glow */
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    font-family: 'Courier New', Courier, monospace; /* Fuente estilo ticket */
+}
+
+.receipt-brand {
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.receipt-brand h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-family: Tahoma, sans-serif;
+}
+
+.receipt-brand p {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: gray;
+    font-family: Tahoma, sans-serif;
+}
+
+.receipt-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.info-group .label {
+    color: gray;
+    font-size: 0.8rem;
+}
+
+.info-group strong {
+    color: var(--text-color);
+}
+
+.receipt-items-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.receipt-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.item-desc strong {
+    font-size: 1rem;
+}
+
+.item-desc span {
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.item-price {
+    font-weight: bold;
+}
+
+.receipt-totals {
+    border-top: 1px dashed var(--border-color);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.total-final {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    color: var(--primary-color);
+}
+
+/* Botones Inferiores */
+.ticket-actions {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    max-width: 550px;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 1.2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-pdf {
+    background-color: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.btn-pdf:hover {
+    background-color: var(--surface-color);
+}
+
+.btn-exit {
+    background-color: #b3d4ff;
+    color: #002d6b;
+    border: none;
+}
+
+.btn-exit:hover {
+    background-color: #99c2ff;
+}
+
+[data-theme="dark"] .btn-exit {
+    background-color: #cce0ff;
+    color: #001a40;
+}
+
+
+
+
+
+
+
+
+/*--------- responsive -------------*/
+/* ========================================================= */
+/* ================= MEDIA QUERIES (RESPONSIVE) ============ */
+/* ========================================================= */
+
+/* Para tablets y pantallas medianas (hasta 900px) */
+@media (max-width: 900px) {
+    /* Header general: apilar elementos */
+    header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .kiosco-info h1 {
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    /* Grilla de productos: achicar el mínimo de las tarjetas */
+    .grilla-kiosco {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    /* Barra del carrito: botones más chicos */
+    .btn-pagar {
+        font-size: 1.2rem;
+        padding: 0.8rem 2rem;
+    }
+
+    /* ----- NUEVO: RESPONSIVE CARRITO (Tablet) ----- */
+    /* Pasamos el layout del carrito de 2 columnas a 1 sola columna */
+    .cart-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .cart-container {
+        padding: 1.5rem; /* Achicamos los márgenes internos */
+    }
+
+    /* ----- ARREGLO: Evitar que el carrito se corte arriba ----- */
+    .body-carrito {
+        height: auto;
+        min-height: 100vh;
+        align-items: flex-start; /* Obliga a que empiece desde arriba, no desde el centro */
+        padding: 1rem;
+    }
+}
+
+/* Para celulares (hasta 600px) */
+@media (max-width: 600px) {
+    /* Bienvenida */
+    .bienvenida-card {
+        padding: 2rem;
+    }
+
+    .bienvenida-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .input-kiosco {
+        width: 100%;
+        font-size: 1.2rem;
+    }
+
+    .btn-comenzar {
+        width: 100%;
+        font-size: 1.2rem;
+        padding: 1rem;
+    }
+
+    /* Header Acciones: botones más compactos */
+    .header-actions {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .btn-admin, .btn-theme {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    /* Categorías de productos */
+    .categorias-kiosco {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .btn-categoria {
+        width: 100%;
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    /* Grilla de productos: 1 o 2 columnas como mucho */
+    .grilla-kiosco {
+        grid-template-columns: 1fr 1fr; /* Fuerza 2 columnas en celu */
+    }
+
+    .tarjeta-producto h3 {
+        font-size: 0.9rem;
+    }
+
+    .btn-agregar {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+
+    /* Barra inferior (Carrito fijo) */
+    .barra-carrito {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .btn-pagar {
+        width: 100%;
+    }
+
+    /* ----- NUEVO: RESPONSIVE CARRITO (Mobile) ----- */
+    /* Acomodamos el header del carrito */
+    .cart-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    /* Ocultamos el div espaciador que usábamos para centrar en PC */
+    .cart-header div[style="width: 150px;"] {
+        display: none;
+    }
+
+    /* Apilamos el contenido de cada producto en el carrito */
+    .cart-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .cart-item img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .item-details {
+        align-items: center;
+    }
+
+    /* Movemos el tacho de basura y el precio para que queden abajo juntos */
+    .item-price-col {
+        width: 100%;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        border-top: 1px solid var(--border-color);
+        padding-top: 1rem;
+    }
+
+    /* Acomodamos el footer del carrito */
+    .cart-footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+
+    /* ----- NUEVO: RESPONSIVE TICKET (Mobile) ----- */
+    /* Achicamos el padding de la tarjeta del ticket */
+    .receipt-card {
+        padding: 1.5rem;
+    }
+
+    /* Pasamos los datos del cliente de 2 columnas a 1 sola */
+    .receipt-info {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Alineamos todo a la izquierda para que sea fácil de leer en celu */
+    .info-group.right-align {
+        text-align: left;
+    }
+
+    /* Apilamos los botones de Descargar PDF y Salir */
+    .ticket-actions {
+        flex-direction: column;
+    }
+
+    .btn-action {
+        width: 100%;
+    }
+
+    /* ----- ARREGLO: Evitar que el carrito se corte arriba ----- */
+    .body-carrito {
+        height: auto;
+        min-height: 100vh;
+        align-items: flex-start; /* Obliga a que empiece desde arriba, no desde el centro */
+        padding: 1rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
