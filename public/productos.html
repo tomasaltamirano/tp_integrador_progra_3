@@ -1,108 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pantalla Productos</title>
-    <link rel="stylesheet" href="./css/styles.css">
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Pantalla Productos</title>
+		<link rel="stylesheet" href="./css/styles.css" />
+	</head>
+	<body>
+		<header>
+			<div class="kiosco-info">
+				<h1>UTN Videogames Store</h1>
+				<p class="alumnos">Desarrollo: Leandro Diaz y Tomás Altamirano</p>
+			</div>
+			<div class="header-actions">
+				<a
+					href="./index.html"
+					class="btn-admin"
+					style="color: var(--accent-color);"
+					>❌ Cancelar Pedido</a
+				>
+				<button class="btn-theme" onclick="toggleTheme()">🌓 Tema</button>
+			</div>
+		</header>
 
-    <header>
-        <div class="kiosco-info">
-            <h1>UTN Videogames Store</h1>
-            <p class="alumnos">Desarrollo: Leandro Diaz y Tomás Altamirano</p>
-        </div>
-        <div class="header-actions">
-            <a href="./index.html" class="btn-admin" style="color: var(--accent-color);">❌ Cancelar Pedido</a>
-            <button class="btn-theme" onclick="toggleTheme()">🌓 Tema</button>
-        </div>
-    </header>
+		<main class="main-kiosco">
+			<div class="categorias-kiosco">
+				<button
+					class="btn-categoria activa"
+					onclick="cambiarCategoria('fisico', this)">
+					JUEGOS FISICOS
+				</button>
 
-    <main class="main-kiosco">
-        <div class="categorias-kiosco">
-            <button class="btn-categoria activa">JUEGOS FISICOS</button>
-            <button class="btn-categoria">JUEGOS DIGITALES</button>
-        </div>
+				<button
+					class="btn-categoria"
+					onclick="cambiarCategoria('digital', this)">
+					JUEGOS DIGITALES
+				</button>
+			</div>
 
-        <div class="grilla-kiosco">
-            
-            <div class="tarjeta-producto">
-                <img src="https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/1c7b75d8ed9271516546560d219ad0b22ee0a263b4537bd8.png" alt="Spider-Man 2">
-                <div class="specs">4K HDR | 60fps</div>
-                <h3>Marvel's Spider-Man 2</h3>
-                <div class="precio">US$ 69.99</div>
-                <button class="btn-agregar">+ AGREGAR</button>
-            </div>
+			<div class="grilla-kiosco" id="grilla-kiosco">
+				<!-- carga dinamica papu -->
+			</div>
+		</main>
 
-            <div class="tarjeta-producto">
-                <img src="https://static.wikia.nocookie.net/doblaje/images/b/b6/Ghost_of_Tsushima.jpg/revision/latest?cb=20200602155902&path-prefix=es" alt="Ghost of Tsushima">
-                <div class="specs">4K HDR | 60fps</div>
-                <h3>Ghost of Tsushima</h3>
-                <div class="precio">US$ 29.99</div>
-                <button class="btn-agregar">+ AGREGAR</button>
-            </div>
+		<div class="barra-carrito">
+			<div class="info-pedido">
+				<h3>🛒 Mi Pedido: 0 items</h3>
+				<p>Total: US$ 0.00</p>
+			</div>
+			<a href="carrito.html" class="btn-pagar">VER PEDIDO ➔</a>
+		</div>
 
-            <div class="tarjeta-producto">
-                <img src="https://gmedia.playstation.com/is/image/SIEPDC/god-of-war-ragnarok-store-art-01-10sep21$en?$facebook$" alt="God of War Ragnarök">
-                <div class="specs">4K HDR | 60fps</div>
-                <h3>God of War Ragnarök</h3>
-                <div class="precio">US$ 49.99</div>
-                <button class="btn-agregar">+ AGREGAR</button>
-            </div>
-
-            <div class="tarjeta-producto">
-                <img src="https://image.api.playstation.com/vulcan/ap/rnd/202109/1321/yZ7dpmjtHr1olhutHT57IFRh.png" alt="Helldivers 2">
-                <div class="specs">Multijugador Online</div>
-                <h3>HELLDIVERS 2</h3>
-                <div class="precio">US$ 39.99</div>
-                <button class="btn-agregar">+ AGREGAR</button>
-            </div>
-
-            <div class="tarjeta-producto">
-                <img src="https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/1c7b75d8ed9271516546560d219ad0b22ee0a263b4537bd8.png" alt="Spider-Man 2">
-                <div class="specs">4K HDR | 60fps</div>
-                <h3>Marvel's Spider-Man 2</h3>
-                <div class="precio">US$ 69.99</div>
-                <button class="btn-agregar">+ AGREGAR</button>
-            </div>
-
-            <div class="tarjeta-producto">
-                <img src="https://static.wikia.nocookie.net/doblaje/images/b/b6/Ghost_of_Tsushima.jpg/revision/latest?cb=20200602155902&path-prefix=es" alt="Ghost of Tsushima">
-                <div class="specs">4K HDR | 60fps</div>
-                <h3>Ghost of Tsushima</h3>
-                <div class="precio">US$ 29.99</div>
-                <button class="btn-agregar">+ AGREGAR</button>
-            </div>
-
-            <div class="tarjeta-producto">
-                <img src="https://gmedia.playstation.com/is/image/SIEPDC/god-of-war-ragnarok-store-art-01-10sep21$en?$facebook$" alt="God of War Ragnarök">
-                <div class="specs">4K HDR | 60fps</div>
-                <h3>God of War Ragnarök</h3>
-                <div class="precio">US$ 49.99</div>
-                <button class="btn-agregar">+ AGREGAR</button>
-            </div>
-
-            <div class="tarjeta-producto">
-                <img src="https://image.api.playstation.com/vulcan/ap/rnd/202109/1321/yZ7dpmjtHr1olhutHT57IFRh.png" alt="Helldivers 2">
-                <div class="specs">Multijugador Online</div>
-                <h3>HELLDIVERS 2</h3>
-                <div class="precio">US$ 39.99</div>
-                <button class="btn-agregar">+ AGREGAR</button>
-            </div>
-
-        </div>
-
-    </main>
-
-    <div class="barra-carrito">
-        <div class="info-pedido">
-            <h3>🛒 Mi Pedido: 0 items</h3>
-            <p>Total: US$ 0.00</p>
-        </div>
-        <a href="carrito.html" class="btn-pagar">VER PEDIDO ➔</a>
-    </div>
-
-    <script src="./js/index.js"></script>
-</body>
+		<script src="./js/index.js"></script>
+		<script src="./js/productos.js"></script>
+	</body>
 </html>
