@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Producto - UTN Videogames</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/admin.css">  <!-- ← agregá esto -->
+</head>
+<body class="body-carrito">
+
+    <header>
+        <div class="kiosco-info">
+            <h1>Panel de Administración</h1>
+            <p class="alumnos">Alta de Nuevos Productos</p>
+        </div>
+        
+        <div class="header-actions">
+            <a href="admin-dashboard.html" class="btn-admin">👁️ Ver Todos</a>
+            <a href="admin-post.html" class="btn-admin" style="border: 2px solid white;">➕ Crear</a>
+            <a href="admin-put.html" class="btn-admin">✏️ Modificar</a>
+            <a href="admin-delete.html" class="btn-admin">🗑️ Eliminar</a>
+            <a href="index.html" class="btn-admin" style="background-color: #8b0000;">Salir</a>
+        </div>
+    </header>
+
+    <div class="cart-container admin-container" style="max-width: 600px; margin-top: 20px;">
+        <div class="cart-header">
+            <h2>Crear Nuevo Videojuego</h2>
+        </div>
+
+        <div class="cart-layout" style="display: block;">
+            
+            <div id="contenedor-mensajes"></div>
+
+            <form id="postProduct-form" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                
+                <label for="nombreProd" style="font-weight: bold;">Nombre del Juego:</label>
+                <input type="text" name="nombre" id="nombreProd" class="input-kiosco" placeholder="Ej: The Last of Us" required>
+
+                <label for="imagenProd" style="font-weight: bold;">URL de la Imagen:</label>
+                <input type="url" name="imagen" id="imagenProd" class="input-kiosco" placeholder="https://..." required>
+
+                <label for="descProd" style="font-weight: bold;">Descripción (Etiqueta):</label>
+                <input type="text" name="descripcion" id="descProd" class="input-kiosco" placeholder="Ej: Edición Física | 4K HDR" required>
+
+                <label for="categoriaProd" style="font-weight: bold;">Categoría:</label>
+                <select name="categoria" id="categoriaProd" class="input-kiosco" required style="cursor: pointer;">
+                    <option value="fisico">Juego Físico</option>
+                    <option value="digital">Juego Digital</option>
+                </select>
+
+                <label for="precioProd" style="font-weight: bold;">Precio (US$):</label>
+                <input type="number" step="0.01" name="precio" id="precioProd" class="input-kiosco" placeholder="Ej: 59.99" required>
+                
+                <button type="submit" class="btn-comenzar" style="margin-top: 15px; width: 100%;">GUARDAR PRODUCTO</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const formAlta = document.getElementById("postProduct-form");
+        const contenedorMensajes = document.getElementById("contenedor-mensajes");
+        
+        // La URL de tu backend
+        const urlBase = "http://localhost:3000/api/productos";
+
+        function mostrarMensaje(tipo, mensaje) {
+            const color = tipo === 'exito' ? '#4ade80' : '#ff6b6b';
+            const bgColor = tipo === 'exito' ? 'rgba(74, 222, 128, 0.1)' : 'rgba(255, 107, 107, 0.1)';
+            
+            contenedorMensajes.innerHTML = `
+                <div style="background-color: ${bgColor}; border: 1px solid ${color}; color: ${color}; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
+                    ${mensaje}
+                </div>
+            `;
+            
+            // Si fue éxito, borramos el mensaje a los 3 segundos
+            if(tipo === 'exito') {
+                setTimeout(() => { contenedorMensajes.innerHTML = ''; }, 3000);
+            }
+        }
+
+        formAlta.addEventListener("submit", async event => {
+            event.preventDefault(); // Evitamos que la página se recargue
+
+            // Recolectamos los datos del formulario
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Convertimos el precio a número (obligatorio para la base de datos)
+            data.precio = Number(data.precio);
+
+            try {
+                // Hacemos el envío POST al backend
+                const response = await fetch(urlBase, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    mostrarMensaje("error", result.error || "Hubo un problema al crear el producto.");
+                    return;
+                }
+
+                // Si salió todo bien:
+                mostrarMensaje("exito", "¡Juego creado con éxito en la base de datos!");
+                formAlta.reset(); // Vaciamos los inputs del formulario
+
+            } catch (error) {
+                console.error("Error al enviar los datos ", error);
+                mostrarMensaje("error", "Error de conexión con el servidor.");
+            }
+        });
+    </script>
+</body>
+</html>
