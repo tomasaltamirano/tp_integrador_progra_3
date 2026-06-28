@@ -1,104 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - UTN Videogames</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="./css/admin.css">  <!-- ← agregá esto -->
-</head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Dashboard Admin - UTN Videogames</title>
+		<link rel="stylesheet" href="./css/styles.css" />
+		<link rel="stylesheet" href="./css/admin.css" />
+		<!-- ← agregá esto -->
+	</head>
 
-<body class="body-carrito"> 
-    <header>
-        <div class="kiosco-info">
-            <h1>Panel de Administración</h1>
-            <p class="alumnos">Gestión de Inventario</p>
-        </div>
-        
-        <div class="header-actions">
-            <a href="admin-dashboard.html" class="btn-admin" style="border: 2px solid white;">👁️ Ver Todos</a>
-            <a href="admin-post.html" class="btn-admin">➕ Crear</a>
-            <a href="admin-put.html" class="btn-admin">✏️ Modificar</a>
-            <a href="admin-delete.html" class="btn-admin">🗑️ Eliminar</a>
-            <a href="index.html" class="btn-admin" style="background-color: #8b0000;">Salir</a>
-        </div>
-    </header>
+	<body class="body-carrito">
+		<header>
+			<div class="kiosco-info">
+				<h1>Panel de Administración</h1>
+				<p class="alumnos">Gestión de Inventario</p>
+			</div>
 
-    <div class="cart-container admin-container">
-        <div class="cart-header">
-            <h2>Inventario Actual</h2>
-        </div>
+			<div class="header-actions">
+				<a
+					href="admin-dashboard.html"
+					class="btn-admin"
+					style="border: 2px solid white;"
+					>👁️ Ver Todos</a
+				>
+				<a href="admin-post.html" class="btn-admin">➕ Crear</a>
+				<a href="admin-put.html" class="btn-admin">✏️ Modificar</a>
+				<a href="admin-delete.html" class="btn-admin">🗑️ Eliminar</a>
+				<button class="btn-theme" onclick="toggleTheme()">🌓 Tema</button>
+				<a
+					href="index.html"
+					class="btn-admin"
+					style="background-color: #8b0000;"
+					>Salir</a
+				>
+			</div>
+		</header>
 
-        <div class="cart-layout">
-            <div id="contenedor-productos" class="admin-grid">
-                <p style="text-align: center;">Cargando productos desde la base de datos...</p>
-            </div>
-        </div>
-    </div>
+		<div class="cart-container admin-container">
+			<div class="cart-header">
+				<h2>Inventario Actual</h2>
+			</div>
 
-    <script>
-        const contenedorProductos = document.getElementById("contenedor-productos");
-        
-        // ATENCIÓN: Asegurate de que esta URL sea la correcta de tu backend
-        // En tu index.js anterior vi que usabas /api/productos (con 'o')
-        const urlBase = "http://localhost:3000/api/productos"; 
+			<div class="cart-layout">
+				<div id="contenedor-productos" class="admin-grid">
+					<p style="text-align: center;">
+						Cargando productos desde la base de datos...
+					</p>
+				</div>
+			</div>
+		</div>
 
-        function mostrarError(message) {
-            contenedorProductos.innerHTML = `<p style="color: #ff6b6b; text-align: center; padding: 20px;">Error: ${message}</p>`;
-        }
+		<script>
+			const contenedorProductos = document.getElementById("contenedor-productos");
 
-        async function obtenerProductos() {
-            try {
-                // Hacemos la petición GET al servidor
-                const response = await fetch(urlBase);
-                const data = await response.json();
+			// ATENCIÓN: Asegurate de que esta URL sea la correcta de tu backend
+			// En tu index.js anterior vi que usabas /api/productos (con 'o')
+			const urlBase = "http://localhost:3000/api/productos";
 
-                if (!response.ok) {
-                    mostrarError(data.error || "No se pudieron cargar los productos");
-                    return;
-                }
-                
-                // Extraemos el array de productos
-                const productos = data.payload;
-                renderizarProductos(productos);
+			function mostrarError(message) {
+			    contenedorProductos.innerHTML = `<p style="color: #ff6b6b; text-align: center; padding: 20px;">Error: ${message}</p>`;
+			}
 
-            } catch (error) {
-                console.error(error);
-                mostrarError("Error de conexión con el servidor. ¿Está prendido XAMPP y Node?");
-            }
-        }
+			async function obtenerProductos() {
+			    try {
+			        // Hacemos la petición GET al servidor
+			        const response = await fetch(urlBase);
+			        const data = await response.json();
 
-        function renderizarProductos(array) {
-            let htmlProductos = "";
+			        if (!response.ok) {
+			            mostrarError(data.error || "No se pudieron cargar los productos");
+			            return;
+			        }
 
-            if (array.length === 0) {
-                contenedorProductos.innerHTML = "<p style='text-align:center;'>No hay productos en la base de datos.</p>";
-                return;
-            }
+			        // Extraemos el array de productos
+			        const productos = data.payload;
+			        renderizarProductos(productos);
 
-            // Usamos una estructura parecida a tu carrito para que se vea lindo
-            array.forEach(producto => {
-                htmlProductos += `
-                    <div class="cart-item" style="justify-content: flex-start; gap: 20px;">
-                        <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
-                        <div class="item-details" style="flex-grow: 1;">
-                            <h4>${producto.nombre}</h4>
-                            <span class="item-badge">${producto.categoria}</span>
-                            <p style="font-size: 12px; color: #aaa; margin-top: 5px;">ID en Base de Datos: <strong>${producto.id}</strong></p>
-                        </div>
-                        <div class="item-price-col">
-                            ${producto.activo ? '<span style="color: #4ade80;">✅ Activo</span>' : '<span style="color: #ff6b6b;">❌ Inactivo</span>'}
-                            <p class="item-price">US$ ${producto.precio}</p>
-                        </div>
-                    </div>
-                `;
-            });
+			    } catch (error) {
+			        console.error(error);
+			        mostrarError("Error de conexión con el servidor. ¿Está prendido XAMPP y Node?");
+			    }
+			}
 
-            contenedorProductos.innerHTML = htmlProductos;
-        }
+			function renderizarProductos(array) {
+			    let htmlProductos = "";
 
-        // Llamamos a la función apenas carga la página
-        obtenerProductos();
-    </script>
-</body>
+			    if (array.length === 0) {
+			        contenedorProductos.innerHTML = "<p style='text-align:center;'>No hay productos en la base de datos.</p>";
+			        return;
+			    }
+
+			    // Usamos una estructura parecida a tu carrito para que se vea lindo
+			    array.forEach(producto => {
+			        htmlProductos += `
+			            <div class="cart-item" style="justify-content: flex-start; gap: 20px;">
+			                <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+			                <div class="item-details" style="flex-grow: 1;">
+			                    <h4>${producto.nombre}</h4>
+			                    <span class="item-badge">${producto.categoria}</span>
+			                    <p style="font-size: 12px; color: #aaa; margin-top: 5px;">ID en Base de Datos: <strong>${producto.id}</strong></p>
+			                </div>
+			                <div class="item-price-col">
+			                    ${producto.activo ? '<span style="color: #4ade80;">✅ Activo</span>' : '<span style="color: #ff6b6b;">❌ Inactivo</span>'}
+			                    <p class="item-price">US$ ${producto.precio}</p>
+			                </div>
+			            </div>
+			        `;
+			    });
+
+			    contenedorProductos.innerHTML = htmlProductos;
+			}
+
+			// Llamamos a la función apenas carga la página
+			obtenerProductos();
+		</script>
+		<script src="./js/index.js"></script>
+	</body>
 </html>

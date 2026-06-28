@@ -1,99 +1,110 @@
-<!DOCTYPE html>
-<html lang="es" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Carrito - UTN Videogames</title>
-    <link rel="stylesheet" href="./css/styles.css">
-</head>
-<body class="body-carrito">
+<!doctype html>
+<html lang="es" data-theme="light">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tu Carrito - UTN Videogames</title>
+		<link rel="stylesheet" href="./css/styles.css" />
+	</head>
+	<body class="body-carrito">
+		<header>
+			<div class="kiosco-info">
+				<h1>UTN Videogames Store</h1>
+				<p class="alumnos">Desarrollo: Leandro Diaz y Tomás Altamirano</p>
+			</div>
+			<div class="header-actions">
+				<button class="btn-theme" onclick="toggleTheme()">🌓 Tema</button>
+			</div>
+		</header>
+		<div class="cart-container">
+			<div class="cart-header">
+				<a href="productos.html" class="btn-back">← Volver a la tienda</a>
+				<h2>Tu Carrito</h2>
+				<div style="width: 150px;"></div>
+			</div>
 
-    <div class="cart-container">
-        
-        <div class="cart-header">
-            <a href="productos.html" class="btn-back">← Volver a la tienda</a>
-            <h2>Tu Carrito</h2>
-            <div style="width: 150px;"></div> 
-        </div>
+			<div class="cart-layout">
+				<div class="cart-items-list">
+					<div class="cart-item">
+						<img
+							src="https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/1c7b75d8ed9271516546560d219ad0b22ee0a263b4537bd8.png"
+							alt="Spider-Man 2" />
+						<div class="item-details">
+							<h4>Marvel's Spider-Man 2</h4>
+							<span class="item-badge">4K HDR</span>
+							<div class="item-actions">
+								<div class="quantity-control">
+									<button class="btn-qty">-</button>
+									<span>1</span>
+									<button class="btn-qty">+</button>
+								</div>
+							</div>
+						</div>
+						<div class="item-price-col">
+							<button class="btn-delete">🗑️</button>
+							<p class="item-price">US$ 69.99</p>
+						</div>
+					</div>
 
-        <div class="cart-layout">
-            
-            <div class="cart-items-list">
-                
-                <div class="cart-item">
-                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/1c7b75d8ed9271516546560d219ad0b22ee0a263b4537bd8.png" alt="Spider-Man 2">
-                    <div class="item-details">
-                        <h4>Marvel's Spider-Man 2</h4>
-                        <span class="item-badge">4K HDR</span>
-                        <div class="item-actions">
-                            <div class="quantity-control">
-                                <button class="btn-qty">-</button>
-                                <span>1</span>
-                                <button class="btn-qty">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-price-col">
-                        <button class="btn-delete">🗑️</button>
-                        <p class="item-price">US$ 69.99</p>
-                    </div>
-                </div>
+					<div class="cart-item">
+						<img
+							src="https://static.wikia.nocookie.net/doblaje/images/b/b6/Ghost_of_Tsushima.jpg/revision/latest?cb=20200602155902&path-prefix=es"
+							alt="Ghost of Tsushima" />
+						<div class="item-details">
+							<h4>Ghost of Tsushima</h4>
+							<span class="item-badge">OPEN WORLD</span>
+							<div class="item-actions">
+								<div class="quantity-control">
+									<button class="btn-qty">-</button>
+									<span>1</span>
+									<button class="btn-qty">+</button>
+								</div>
+							</div>
+						</div>
+						<div class="item-price-col">
+							<button class="btn-delete">🗑️</button>
+							<p class="item-price">US$ 29.99</p>
+						</div>
+					</div>
+				</div>
 
-                <div class="cart-item">
-                    <img src="https://static.wikia.nocookie.net/doblaje/images/b/b6/Ghost_of_Tsushima.jpg/revision/latest?cb=20200602155902&path-prefix=es" alt="Ghost of Tsushima">
-                    <div class="item-details">
-                        <h4>Ghost of Tsushima</h4>
-                        <span class="item-badge">OPEN WORLD</span>
-                        <div class="item-actions">
-                            <div class="quantity-control">
-                                <button class="btn-qty">-</button>
-                                <span>1</span>
-                                <button class="btn-qty">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-price-col">
-                        <button class="btn-delete">🗑️</button>
-                        <p class="item-price">US$ 29.99</p>
-                    </div>
-                </div>
+				<div class="cart-summary">
+					<h3>Resumen de Pedido</h3>
 
-            </div>
+					<div class="summary-row">
+						<span id="resumen-items-count">Subtotal (0 items)</span>
+						<span id="resumen-subtotal">US$ 0.00</span>
+					</div>
 
-            <div class="cart-summary">
-                <h3>Resumen de Pedido</h3>
-    
-                <div class="summary-row">
-                    <span id="resumen-items-count">Subtotal (0 items)</span>
-                    <span id="resumen-subtotal">US$ 0.00</span>
-                </div>
+					<div class="summary-row total-row">
+						<span>Total</span>
+						<span id="resumen-total">US$ 0.00</span>
+					</div>
 
-                <div class="summary-row total-row">
-                    <span>Total</span>
-                    <span id="resumen-total">US$ 0.00</span>
-                </div>
-    
-                <hr class="summary-divider">
-    
-                <a href="ticket.html" class="btn-confirm-purchase">Confirmar Compra 🛒</a>
-                <p class="secure-checkout">🔒 Pago Seguro Seguro</p>
-            </div>
+					<hr class="summary-divider" />
 
-        </div>
+					<a href="ticket.html" class="btn-confirm-purchase"
+						>Confirmar Compra 🛒</a
+					>
+					<p class="secure-checkout">🔒 Pago Seguro Seguro</p>
+				</div>
+			</div>
 
-        <div class="cart-footer">
-            <strong>UTN Videogames</strong>
-            <div class="footer-links">
-                <span>Términos de Servicio</span>
-                <span>Política de Privacidad</span>
-                <span>Soporte</span>
-                <span>Sobre Nosotros</span>
-            </div>
-            <span class="copyright">© 2024 UTN Videogames. Creado por Leandro y Tomás.</span>
-        </div>
+			<div class="cart-footer">
+				<strong>UTN Videogames</strong>
+				<div class="footer-links">
+					<span>Términos de Servicio</span>
+					<span>Política de Privacidad</span>
+					<span>Soporte</span>
+					<span>Sobre Nosotros</span>
+				</div>
+				<span class="copyright"
+					>© 2024 UTN Videogames. Creado por Leandro y Tomás.</span
+				>
+			</div>
+		</div>
 
-    </div>
-
-    <script src="./js/carrito.js"></script>
-</body>
+		<script src="./js/carrito.js"></script>
+		<script src="./js/index.js"></script>
+	</body>
 </html>
