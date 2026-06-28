@@ -1,104 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compra Exitosa - UTN Videogames</title>
-    <link rel="stylesheet" href="./css/styles.css">
-</head>
-<body class="body-ticket">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Compra Exitosa - UTN Videogames</title>
+		<link rel="stylesheet" href="./css/styles.css" />
+	</head>
+	<body class="body-ticket">
+		<header>
+			<div class="kiosco-info">
+				<h1>UTN Videogames Store</h1>
+				<p class="alumnos">Desarrollo: Leandro Diaz y Tomás Altamirano</p>
+			</div>
+			<div class="header-actions">
+				<button class="btn-theme" onclick="toggleTheme()">🌓 Tema</button>
+			</div>
+		</header>
 
-    <header>
-        <div class="kiosco-info">
-            <h1>UTN Videogames Store</h1>
-            <p class="alumnos">Desarrollo: Leandro Diaz y Tomás Altamirano</p>
-        </div>
-        <div class="header-actions">
-            <button class="btn-theme" onclick="toggleTheme()">🌓 Tema</button>
-        </div>
-    </header>
+		<main class="ticket-main">
+			<div class="success-header">
+				<div class="check-icon">✓</div>
+				<h2>Compra Completada</h2>
+				<p>Tu orden ha sido procesada exitosamente.</p>
+			</div>
 
-    <main class="ticket-main">
-        <div class="success-header">
-            <div class="check-icon">✓</div>
-            <h2>Compra Completada</h2>
-            <p>Tu orden ha sido procesada exitosamente.</p>
-        </div>
+			<div class="receipt-card" id="boletaPDF">
+				<div class="receipt-brand">
+					<h3>UTN Videogames</h3>
+					<p>DIGITAL MARKETPLACE</p>
+				</div>
 
-        <div class="receipt-card" id="boletaPDF">
-            <div class="receipt-brand">
-                <h3>UTN Videogames</h3>
-                <p>DIGITAL MARKETPLACE</p>
-            </div>
+				<div class="receipt-info">
+					<div class="info-group">
+						<span class="label">Cliente</span>
+						<strong id="ticketNombreUsuario">Cargando...</strong>
+					</div>
+					<div class="info-group right-align">
+						<span class="label">Fecha</span>
+						<strong id="ticketFechaActual">...</strong>
+					</div>
+					<div class="info-group">
+						<span class="label">ID de Orden</span>
+						<strong>#UTN-99482-X</strong>
+					</div>
+					<div class="info-group right-align">
+						<span class="label">Método de Pago</span>
+						<strong>Kiosco Terminal 1</strong>
+					</div>
+				</div>
 
-            <div class="receipt-info">
-                <div class="info-group">
-                    <span class="label">Cliente</span>
-                    <strong id="ticketNombreUsuario">Cargando...</strong>
-                </div>
-                <div class="info-group right-align">
-                    <span class="label">Fecha</span>
-                    <strong id="ticketFechaActual">...</strong>
-                </div>
-                <div class="info-group">
-                    <span class="label">ID de Orden</span>
-                    <strong>#UTN-99482-X</strong>
-                </div>
-                <div class="info-group right-align">
-                    <span class="label">Método de Pago</span>
-                    <strong>Kiosco Terminal 1</strong>
-                </div>
-            </div>
+				<div class="receipt-items-header">
+					<span>Item</span>
+					<span>Monto</span>
+				</div>
 
-            <div class="receipt-items-header">
-                <span>Item</span>
-                <span>Monto</span>
-            </div>
+				<div class="receipt-items" id="ticket-items"></div>
 
-            <div class="receipt-items">
-                <div class="receipt-row">
-                    <div class="item-desc">
-                        <strong>Marvel's Spider-Man 2</strong>
-                        <span>1x Edición Digital (4K HDR - 60fps)</span>
-                    </div>
-                    <div class="item-price">US$ 69.99</div>
-                </div>
+				<div class="receipt-totals">
+					<div class="receipt-row">
+						<span>Subtotal</span>
+						<span id="ticket-subtotal">US$ 0.00</span>
+					</div>
+					<div class="receipt-row total-final">
+						<span>Total</span>
+						<span id="ticket-total">US$ 0.00</span>
+					</div>
+				</div>
+			</div>
 
-                <div class="receipt-row">
-                    <div class="item-desc">
-                        <strong>Ghost of Tsushima</strong>
-                        <span>1x Edición Digital (4K HDR - 60fps)</span>
-                    </div>
-                    <div class="item-price">US$ 29.99</div>
-                </div>
-            </div>
+			<div class="ticket-actions">
+				<button class="btn-action btn-pdf" onclick="descargarPDF()">
+					📥 Descargar PDF
+				</button>
+				<a href="index.html" class="btn-action btn-exit">
+					🏠 Salir / Volver a Empezar
+				</a>
+			</div>
+		</main>
 
-            <div class="receipt-totals">
-                <div class="receipt-row">
-                    <span>Subtotal</span>
-                    <span>US$ 99.98</span>
-                </div>
-                <div class="receipt-row">
-                    <span>Impuestos (21%)</span>
-                    <span>US$ 20.99</span>
-                </div>
-                <div class="receipt-row total-final">
-                    <span>Total</span>
-                    <span>US$ 120.97</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="ticket-actions">
-            <button class="btn-action btn-pdf" onclick="descargarPDF()">
-                📥 Descargar PDF
-            </button>
-            <a href="index.html" class="btn-action btn-exit">
-                🏠 Salir / Volver a Empezar
-            </a>
-        </div>
-    </main>
-
-    <script src="./js/index.js"></script>
-</body>
+		<script src="./js/index.js"></script>
+		<script src="./js/ticket.js"></script>
+	</body>
 </html>
