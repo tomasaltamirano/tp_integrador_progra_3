@@ -23,9 +23,7 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `productos`
---
+
 
 CREATE TABLE `productos` (
   `id` int(11) NOT NULL,
@@ -37,9 +35,7 @@ CREATE TABLE `productos` (
   `activo` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `productos`
---
+
 
 INSERT INTO `productos` (`id`, `nombre`, `precio`, `descripcion`, `imagen`, `categoria`, `activo`) VALUES
 (1, 'Marvel Spider-Man 2', 69.99, 'Edición física 4K HDR | 60fps', 'https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/1c7b75d8ed9271516546560d219ad0b22ee0a263b4537bd8.png', 'fisico', 1),
@@ -56,9 +52,6 @@ INSERT INTO `productos` (`id`, `nombre`, `precio`, `descripcion`, `imagen`, `cat
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `usuarios`
---
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
@@ -68,9 +61,6 @@ CREATE TABLE `usuarios` (
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `ventas`
---
 
 CREATE TABLE `ventas` (
   `id` int(11) NOT NULL,
@@ -79,18 +69,12 @@ CREATE TABLE `ventas` (
   `precio_total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `ventas`
---
 
 INSERT INTO `ventas` (`id`, `nombre_cliente`, `fecha`, `precio_total`) VALUES
 (1, 'Tomas', '2026-06-21 03:27:34', 99.98);
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `venta_productos`
---
 
 CREATE TABLE `venta_productos` (
   `id` int(11) NOT NULL,
@@ -99,80 +83,53 @@ CREATE TABLE `venta_productos` (
   `cantidad` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `venta_productos`
---
+
 
 INSERT INTO `venta_productos` (`id`, `venta_id`, `producto_id`, `cantidad`) VALUES
 (1, 1, 1, 1),
 (2, 1, 2, 2);
 
---
--- Índices para tablas volcadas
---
 
---
--- Indices de la tabla `productos`
---
+
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`);
 
---
--- Indices de la tabla `usuarios`
---
+
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
---
--- Indices de la tabla `ventas`
---
+
 ALTER TABLE `ventas`
   ADD PRIMARY KEY (`id`);
 
---
--- Indices de la tabla `venta_productos`
---
+
 ALTER TABLE `venta_productos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `venta_id` (`venta_id`),
   ADD KEY `producto_id` (`producto_id`);
 
---
--- AUTO_INCREMENT de las tablas volcadas
---
 
---
--- AUTO_INCREMENT de la tabla `productos`
---
+
+
 ALTER TABLE `productos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
+
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT de la tabla `ventas`
---
+
 ALTER TABLE `ventas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- AUTO_INCREMENT de la tabla `venta_productos`
---
+
 ALTER TABLE `venta_productos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
--- Restricciones para tablas volcadas
---
 
---
--- Filtros para la tabla `venta_productos`
---
+
+
 ALTER TABLE `venta_productos`
   ADD CONSTRAINT `venta_productos_ibfk_1` FOREIGN KEY (`venta_id`) REFERENCES `ventas` (`id`),
   ADD CONSTRAINT `venta_productos_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
