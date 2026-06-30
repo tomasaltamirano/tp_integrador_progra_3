@@ -1,0 +1,14 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/nav.ejs") %>
+<main>
+    <h2><%= about %></h2>
+    <form id="buscarProducto-form">
+        <label>ID del producto a modificar</label>
+        <input type="number" id="idBuscar" required>
+        <button type="submit">Buscar</button>
+    </form>
+    <div id="contenedor-form"></div>
+    <div id="contenedor-mensajes"></div>
+</main>
+<script src="/js/admin/put.js"></script>
+<%- include("partials/footer.ejs") %>

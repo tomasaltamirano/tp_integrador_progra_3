@@ -1,0 +1,24 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/nav.ejs") %>
+
+<div class="cart-container admin-container">
+    <div class="cart-header">
+        <h2><%= about %></h2>
+    </div>
+
+    <div class="cart-layout">
+        <div id="contenedor-productos" class="admin-grid">
+            <% productosArray.forEach(producto => { %>
+                <div class="cart-item">
+                    <img src="<%= producto.imagen %>" alt="<%= producto.nombre %>">
+                    <h4><%= producto.nombre %></h4>
+                    <p>ID: <%= producto.id %></p>
+                    <p class="item-price-col">US$ <%= producto.precio %></p>
+                    <p><%= producto.categoria %></p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

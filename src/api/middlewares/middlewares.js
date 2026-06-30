@@ -88,3 +88,11 @@ export const validateVenta = (req, res, next) => {
 
 	next();
 };
+
+// Middleware de protección de rutas — redirige al login si no hay sesión
+export const requireLogin = (req, res, next) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    next();
+};

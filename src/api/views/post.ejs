@@ -1,0 +1,24 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/nav.ejs") %>
+<main>
+    <h2><%= about %></h2>
+    <form id="postProduct-form">
+        <label>Nombre</label>
+        <input type="text" name="nombre" required>
+        <label>URL Imagen</label>
+        <input type="text" name="imagen" required>
+        <label>Descripción</label>
+        <input type="text" name="descripcion" required>
+        <label>Categoría</label>
+        <select name="categoria">
+            <option value="fisico">Físico</option>
+            <option value="digital">Digital</option>
+        </select>
+        <label>Precio (US$)</label>
+        <input type="number" step="0.01" name="precio" required>
+        <button type="submit">Crear producto</button>
+    </form>
+    <div id="contenedor-mensajes"></div>
+</main>
+<script src="/js/admin/post.js"></script>
+<%- include("partials/footer.ejs") %>
