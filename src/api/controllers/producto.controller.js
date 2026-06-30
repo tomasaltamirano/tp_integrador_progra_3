@@ -1,14 +1,12 @@
 /*========================
     Controlador de Productos
 ========================*/
-import connection from '../database/db.js';
+import ProductoModels from '../models/product.models.js';
 
 // GET todos los productos activos
 export const obtenerProductos = async (req, res) => {
 	try {
-		const [rows] = await connection.query(
-			'SELECT * FROM productos WHERE activo = 1',
-		);
+		const [rows] = await ProductoModels.selectAllProductos();
 		res.status(200).json({ payload: rows });
 	} catch (error) {
 		console.error('Error obteniendo productos: ', error.message);
@@ -20,10 +18,7 @@ export const obtenerProductos = async (req, res) => {
 export const obtenerProductoPorId = async (req, res) => {
 	try {
 		const id = req.id; // Lo pusimos en req.id desde el middleware validateId
-		const [rows] = await connection.query(
-			'SELECT * FROM productos WHERE id = ?',
-			[id],
-		);
+		const [rows] = await ProductoModels.selectProductoById(id);
 		if (rows.length === 0) {
 			return res.status(404).json({ error: 'Producto no encontrado' });
 		}
@@ -38,10 +33,7 @@ export const obtenerProductoPorId = async (req, res) => {
 export const crearProducto = async (req, res) => {
 	try {
 		const { nombre, precio, descripcion, imagen, categoria } = req.body;
-		const [result] = await connection.query(
-			'INSERT INTO productos (nombre, precio, descripcion, imagen, categoria, activo) VALUES (?, ?, ?, ?, ?, 1)',
-			[nombre, precio, descripcion, imagen, categoria],
-		);
+		const [result] = await ProductoModels.insertProducto(nombre, precio, descripcion, imagen, categoria);
 		res.status(201).json({ mensaje: 'Producto creado', id: result.insertId });
 	} catch (error) {
 		console.error('Error creando producto: ', error.message);
@@ -54,10 +46,7 @@ export const editarProducto = async (req, res) => {
 	try {
 		const id = req.id;
 		const { nombre, precio, descripcion, imagen, categoria } = req.body;
-		await connection.query(
-			'UPDATE productos SET nombre = ?, precio = ?, descripcion = ?, imagen = ?, categoria = ? WHERE id = ?',
-			[nombre, precio, descripcion, imagen, categoria, id],
-		);
+		await ProductoModels.updateProducto(nombre, precio, descripcion, imagen, categoria, id);
 		res.status(200).json({ mensaje: 'Producto actualizado' });
 	} catch (error) {
 		console.error('Error actualizando producto: ', error.message);
@@ -69,9 +58,7 @@ export const editarProducto = async (req, res) => {
 export const desactivarProducto = async (req, res) => {
 	try {
 		const id = req.id;
-		await connection.query('UPDATE productos SET activo = 0 WHERE id = ?', [
-			id,
-		]);
+		await ProductoModels.desactivarProducto(id);
 		res.status(200).json({ mensaje: 'Producto desactivado' });
 	} catch (error) {
 		console.error('Error desactivando producto: ', error.message);
@@ -83,9 +70,7 @@ export const desactivarProducto = async (req, res) => {
 export const activarProducto = async (req, res) => {
 	try {
 		const id = req.id;
-		await connection.query('UPDATE productos SET activo = 1 WHERE id = ?', [
-			id,
-		]);
+		await ProductoModels.activarProducto(id);
 		res.status(200).json({ mensaje: 'Producto activado' });
 	} catch (error) {
 		console.error('Error activando producto: ', error.message);

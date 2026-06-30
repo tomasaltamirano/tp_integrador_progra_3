@@ -1,21 +1,15 @@
 /*========================
     Controlador de Ventas
 ========================*/
-import connection from '../database/db.js';
+import VentaModels from '../models/venta.models.js';
 
 // GET todas las ventas con sus productos
 export const obtenerVentas = async (req, res) => {
 	try {
-		const [ventas] = await connection.query('SELECT * FROM ventas');
+		const [ventas] = await VentaModels.selectAllVentas();
 
 		for (const venta of ventas) {
-			const [productos] = await connection.query(
-				`SELECT p.*, vp.cantidad 
-                 FROM productos p 
-                 JOIN venta_productos vp ON p.id = vp.producto_id 
-                 WHERE vp.venta_id = ?`,
-				[venta.id],
-			);
+			const [productos] = await VentaModels.selectProductosPorVenta(venta.id);
 			venta.productos = productos;
 		}
 
@@ -31,18 +25,11 @@ export const registrarVenta = async (req, res) => {
 	try {
 		const { nombre_cliente, precio_total, productos } = req.body;
 
-		const [result] = await connection.query(
-			'INSERT INTO ventas (nombre_cliente, precio_total) VALUES (?, ?)',
-			[nombre_cliente, precio_total],
-		);
-
+		const [result] = await VentaModels.insertVenta(nombre_cliente, precio_total);
 		const ventaId = result.insertId;
 
 		for (const producto of productos) {
-			await connection.query(
-				'INSERT INTO venta_productos (venta_id, producto_id, cantidad) VALUES (?, ?, ?)',
-				[ventaId, producto.id, producto.cantidad],
-			);
+			await VentaModels.insertVentaProducto(ventaId, producto.id, producto.cantidad);
 		}
 
 		res.status(201).json({ mensaje: 'Venta registrada', id: ventaId });
