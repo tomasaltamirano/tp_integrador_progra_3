@@ -9,4 +9,9 @@ const router = Router();
 router.get('/', loginView);
 router.post('/', loginUser);
 
+router.get('/logout', (req, res) => {
+	req.session.destroy();
+	res.redirect('/login');
+});
+
 export default router;
