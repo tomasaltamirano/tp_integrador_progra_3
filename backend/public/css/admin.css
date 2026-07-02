@@ -1,0 +1,64 @@
+/* ==========================================
+   ADMIN DASHBOARD - Estilos específicos
+========================================== */
+
+/* Pisamos los estilos de body-carrito para el admin */
+.body-carrito {
+    align-items: flex-start !important;
+    height: auto !important;
+    min-height: 100vh;
+    justify-content: flex-start !important;  /* ← esto faltaba */
+    flex-direction: column !important;
+    padding: 0 !important;                   /* ← sacamos el padding que empuja */
+}
+
+/* Contenedor más ancho */
+.cart-container.admin-container {
+    max-width: 95%;
+    width: 95%;
+    margin: 20px auto;
+}
+
+/* Pisamos el cart-layout que tiene 2 columnas por defecto */
+.admin-container .cart-layout {
+    display: block; /* ← anulamos el grid de 2 columnas del carrito */
+}
+
+/* Grilla de 3 columnas para productos */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+/* Cards */
+.admin-grid .cart-item {
+    margin-bottom: 0;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Imagen fija */
+.admin-grid .cart-item img {
+    flex-shrink: 0;
+    width: 70px !important;
+    height: 70px !important;
+}
+
+/* Precio no se corta */
+.admin-grid .item-price-col {
+    flex-shrink: 0;
+    align-items: flex-end;
+    white-space: nowrap;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px 30px;
+    width: 100%;
+    box-sizing: border-box;
+}

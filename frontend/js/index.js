@@ -55,6 +55,30 @@ if (btn) {
 }
 
 //logica para activar y desactivar productos en el dashboard de admin:
+// async function cambiarEstado(id, accion) {
+// 	const mensaje =
+// 		accion === 'desactivar'
+// 			? '¿Estás seguro de desactivar este producto?'
+// 			: '¿Estás seguro de activar este producto?';
+
+// 	if (!confirm(mensaje)) return;
+
+// 	try {
+// 		const response = await fetch(`/api/productos/${id}/${accion}`, {
+// 			method: 'PUT',
+// 		});
+
+// 		if (response.ok) {
+// 			window.location.reload();
+// 		} else {
+// 			alert('Error al cambiar el estado del producto');
+// 		}
+// 	} catch (error) {
+// 		alert('Error de conexión con el servidor');
+// 	}
+// }
+
+// lógica para activar y desactivar productos en el dashboard de admin:
 async function cambiarEstado(id, accion) {
 	const mensaje =
 		accion === 'desactivar'
@@ -64,9 +88,13 @@ async function cambiarEstado(id, accion) {
 	if (!confirm(mensaje)) return;
 
 	try {
-		const response = await fetch(`/api/productos/${id}/${accion}`, {
-			method: 'PUT',
-		});
+		// ACÁ ESTÁ EL CAMBIO DE RUTA ABSOLUTA
+		const response = await fetch(
+			`http://localhost:3000/api/productos/${id}/${accion}`,
+			{
+				method: 'PUT',
+			},
+		);
 
 		if (response.ok) {
 			window.location.reload();

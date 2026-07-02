@@ -16,6 +16,8 @@ import authRoutes from './src/api/routes/auth.routes.js';
 ========================*/
 const app = express();
 const PORT = environments.port;
+console.log('CONTRASEÑA BD:', environments.database.password);
+console.log('USUARIO BD:', environments.database.user);
 
 // Configuramos EJS como motor de vistas
 app.set('view engine', 'ejs');
@@ -31,11 +33,13 @@ app.use(express.urlencoded({ extended: true })); // Para leer formularios HTML
 app.use(express.static(join(__dirname, 'public')));
 
 // Sesiones para el login
-app.use(session({
-    secret: 'utn_videogames_secret',
-    resave: false,
-    saveUninitialized: true,
-}));
+app.use(
+	session({
+		secret: 'utn_videogames_secret',
+		resave: false,
+		saveUninitialized: true,
+	}),
+);
 
 /*========================
     Rutas
@@ -45,12 +49,12 @@ app.use('/dashboard', viewRoutes);
 app.use('/login', authRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Servidor UTN Videogames corriendo');
+	res.redirect('/login');
 });
 
 /*========================
     Servidor
 ========================*/
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
+	console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
